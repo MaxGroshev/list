@@ -8,7 +8,7 @@ void list_init (list_t* box)
     MY_ASSERT    (box->data  != NULL);
     box->index = (struct access*) calloc (box->capacity, sizeof (struct access));
     MY_ASSERT    (box->index != NULL);
-    box->index[0].next = 0;
+    memset (box->index + 1, -1, (box->capacity - 1) * sizeof (struct access));
     box->head  = 1;
     box->tail  = 1;
     box->free  = 1;
@@ -31,13 +31,13 @@ void list_push (list_t* box, list_type element, size_t position)
     else if (position == 1)
     {
         box->data[box->free] = element;
-        box->index[box->free].next = position
+        box->index[box->free].next = position;
     }
 
     else
     {
         box->data[box->free]          = element;
-        box->index[box->free].next    = position;
+        box->index[box->free].next    = box->index[position - 1].next;
         box->index[position - 1].next = box->free;
     }
 
