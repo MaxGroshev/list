@@ -38,6 +38,7 @@ struct list_t
 {
     list_type* data;
     struct     access* index;
+    size_t     prev_push;
     size_t     head;
     size_t     tail;
     size_t     free;
@@ -50,8 +51,8 @@ struct list_t
 
 void       list_init   (list_t* box);
 void       list_push   (list_t* box, list_type element, size_t position);
-list_type  list_pop    (list_t* box);
-size_t     bad_search  (list_t* box);
+list_type  list_pop    (list_t* box, size_t position);
+void       bad_search  (list_t* box);
 // void      list_print  (queue* box);
 // int       list_check  (queue* box);
 // void      list_dump   (queue* box);
