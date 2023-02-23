@@ -14,6 +14,7 @@ int main ()
     list_push (&box, 18, 3);
     list_push (&box, 1, 1);
     //list_push (&box, 32, 7);
+    list_pop (&box, 7);
 
     for (int i = 0; i < box.capacity; i++)
     {

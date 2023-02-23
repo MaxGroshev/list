@@ -49,11 +49,12 @@ struct list_t
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void       list_init   (list_t* box);
-void       list_push   (list_t* box, list_type element, size_t position);
-list_type  list_pop    (list_t* box, size_t position);
-void       bad_search  (list_t* box);
+void       list_init  (list_t* box);
+void       list_push  (list_t* box, list_type element, size_t position);
+list_type  list_pop   (list_t* box, size_t position);
+void       bad_search (list_t* box);
 // void      list_print  (queue* box);
 // int       list_check  (queue* box);
 // void      list_dump   (queue* box);
- void      list_delete (list_t* box);
+void      clean_cell  (list_t* box, size_t num_cell);
+void      list_delete (list_t* box);

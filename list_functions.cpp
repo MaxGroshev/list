@@ -37,9 +37,8 @@ void list_push (list_t* box, list_type element, size_t position)
         box->tail                  = box->free;
     }
 
-    else if (position <= box->head)
+    else if (position == 1)
     {
-        printf ("hey\n");
         box->data [box->free]      = element;
         box->index[box->free].next = box->head;
         box->index[box->free].prev = 0;
@@ -52,7 +51,6 @@ void list_push (list_t* box, list_type element, size_t position)
         size_t next_cell = box->head;
         for (int i = 0; i < position - 2; i++)
         {
-            printf ("%ld\n", position - 2);
             next_cell = box->index[next_cell].next;
         }
 
@@ -61,7 +59,6 @@ void list_push (list_t* box, list_type element, size_t position)
         box->index[box->free].prev = next_cell;
         box->index[box->free].next = box->index[next_cell].next;
         box->index[next_cell].next = box->free;
-        //printf ("%d %ld %ld\n", box->data[box->free], box->index[box->free].next, box->index[box->free].prev);
     }
     box->size++;
 }
@@ -77,7 +74,6 @@ void bad_search (list_t* box)
             box->free = i;
             break;
         }
-        //printf ("Hello %ld\n", box->index[i].next);
     }
 }
 
@@ -85,7 +81,47 @@ void bad_search (list_t* box)
 
 list_type  list_pop (list_t* box, size_t position )
 {
-    list_type element = box->index[position].next;
+    list_type element = 0;
+
+    if (box->size == 1)
+    {
+        element = box->data[box->tail];
+        box->index[box->free].prev = 0;
+        box->index[box->free].next = 0;
+        clean_cell (box, box->tail);
+    }
+
+    else if (position == box->size)
+    {
+        element = box->data[box->tail];
+        box->index[box->index[box->tail].prev].next = 0;
+        clean_cell (box, box->tail);
+        box->tail = box->index[box->tail].prev;
+    }
+
+    else if (position == 1)
+    {
+        list_type element = box->data[box->head];
+        box->index[box->index[box->head].next].prev = 0;
+        clean_cell (box, box->head);
+        box->head = box->index[box->head].next;
+    }
+
+    else
+    {
+        size_t next_cell = box->head;
+        for (int i = 0; i < position - 1; i++)
+        {
+            next_cell = box->index[next_cell].next;
+        }
+
+        element = box->data[next_cell];
+        box->index[box->index[next_cell].next].prev = box->index[next_cell].prev;
+        box->index[box->index[next_cell].prev].next = box->index[next_cell].next;
+        clean_cell (box, next_cell);
+    }
+    box->size--;
+
     return element;
 }
 
@@ -95,4 +131,11 @@ void list_delete (list_t* box)
 {
     free (box->data);
     free (box->index);
+}
+
+void clean_cell (list_t* box, size_t num_cell)
+{
+    box->index[num_cell].next = -1;
+    box->index[num_cell].prev = -1;
+    box->data [num_cell]      = 0xDEAD;
 }
