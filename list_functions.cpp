@@ -3,7 +3,6 @@
 void list_init (list_t* box)
 {
     box->capacity = 10;
-
     box->data  = (list_type*) calloc (box->capacity, sizeof (list_type));
     MY_ASSERT    (box->data  != NULL);
     box->index = (struct access*) calloc (box->capacity, sizeof (struct access));
@@ -67,6 +66,7 @@ void list_push (list_t* box, list_type element, size_t position)
 
 void bad_search (list_t* box)
 {
+    box->free = 0;
     for (int i = 0; i < box->capacity; i++)
     {
         if (box->index[i].next == -1)
@@ -74,6 +74,11 @@ void bad_search (list_t* box)
             box->free = i;
             break;
         }
+    }
+
+    if (box->capacity < box->size + 3)
+    {
+        list_resize (box);
     }
 }
 
@@ -93,18 +98,18 @@ list_type  list_pop (list_t* box, size_t position )
 
     else if (position == box->size)
     {
-        element = box->data[box->tail];
-        box->index[box->index[box->tail].prev].next = 0;
-        clean_cell (box, box->tail);
+        element   = box->data[box->tail];
         box->tail = box->index[box->tail].prev;
+        clean_cell (box, box->index[box->tail].next);
+        box->index[box->tail].next = 0;
     }
 
     else if (position == 1)
     {
-        list_type element = box->data[box->head];
-        box->index[box->index[box->head].next].prev = 0;
-        clean_cell (box, box->head);
+        element   = box->data[box->head];
         box->head = box->index[box->head].next;
+        clean_cell (box, box->index[box->head].prev);
+        box->index[box->head].prev = 0;
     }
 
     else
@@ -127,15 +132,34 @@ list_type  list_pop (list_t* box, size_t position )
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void list_delete (list_t* box)
-{
-    free (box->data);
-    free (box->index);
-}
-
 void clean_cell (list_t* box, size_t num_cell)
 {
     box->index[num_cell].next = -1;
     box->index[num_cell].prev = -1;
     box->data [num_cell]      = 0xDEAD;
 }
+
+void list_resize (list_t* box)
+{
+    size_t prev_size = box->capacity;
+    box->capacity *= 2;
+    list_type*     data_resize  = box->data;
+    struct access* index_resize = box->index;
+    data_resize  = (list_type*)     realloc (box->data,  box->capacity * sizeof (list_type));
+    index_resize = (struct access*) realloc (box->index, box->capacity * sizeof (struct access));
+    MY_ASSERT (data_resize != NULL && index_resize != NULL);
+
+    box->data  = data_resize;
+    box->index = index_resize;
+    printf ("%ld", box->size);
+    memset (box->index + box->size + 2, -1, (box->capacity - box->size - 2) * sizeof (struct access));
+
+    list_print (box);
+}
+
+void list_delete (list_t* box)
+{
+    free (box->data);
+    free (box->index);
+}
+
