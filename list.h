@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "list_check.h"
+#include "list_check.h"
 #include "my_ASSERT.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ typedef int list_type; // type of elem in queue
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-enum queue_side
+enum list_side
 {
     TAIL = 1,
     HEAD = 2,
@@ -22,8 +22,9 @@ enum queue_side
 
 enum code_of_errors
 {
-    EMPTY_QUEUE      = -1,
-    OVERFLOWED_QUEUE = -2,
+    LIST_IS_OKEY    =  0,
+    CELL_NOT_FOUND  = -1,
+    NO_FREE_CELL    = -2,
 };
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,13 +49,13 @@ struct list_t
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void       list_init  (list_t* box);
-void       list_push  (list_t* box, list_type element, size_t position);
-list_type  list_pop   (list_t* box, size_t position);
-void       bad_search (list_t* box);
-void       list_print (list_t* box);
-void       list_resize(list_t* box);
-// int       list_check  (queue* box);
-// void      list_dump   (queue* box);
+void      list_init   (list_t* box);
+void      list_push   (list_t* box, list_type element, size_t position);
+list_type list_pop    (list_t* box, size_t position);
+void      bad_search  (list_t* box);
+void      list_resize (list_t* box);
 void      clean_cell  (list_t* box, size_t num_cell);
 void      list_delete (list_t* box);
+
+void      list_print  (list_t* box);
+void       list_check  (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LINE);

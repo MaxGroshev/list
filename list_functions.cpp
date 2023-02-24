@@ -18,7 +18,7 @@ void list_init (list_t* box)
 void list_push (list_t* box, list_type element, size_t position)
 {
     bad_search (box);
-    MY_ASSERT  (box->free != 0);
+    LIST_CHECK (box->free != 0 && position > 0 && position - 1 <= box->size );
 
     if (box->size == 0)
     {
@@ -87,6 +87,7 @@ void bad_search (list_t* box)
 list_type  list_pop (list_t* box, size_t position )
 {
     list_type element = 0;
+    LIST_CHECK (position > 0 && position - 1 <= box->size );
 
     if (box->size == 1)
     {
@@ -151,10 +152,9 @@ void list_resize (list_t* box)
 
     box->data  = data_resize;
     box->index = index_resize;
-    printf ("%ld", box->size);
     memset (box->index + box->size + 2, -1, (box->capacity - box->size - 2) * sizeof (struct access));
 
-    list_print (box);
+    //list_print (box);
 }
 
 void list_delete (list_t* box)
