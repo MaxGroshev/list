@@ -58,3 +58,43 @@ void list_print (list_t* box)
     }
     fclose (print_list);
 }
+
+void list_graph (list_t* box)
+{
+    FILE* graphviz = fopen ("list_dump.dot", "w");
+
+    fprintf (graphviz, "digraph \n{\n");
+    fprintf (graphviz, "rankdir = \"LR\"\n");
+    fprintf (graphviz, "node [shape = Mrecord, fillcolor= \"#FA8072\", style = filled, fontcolor = white, "
+                       "color = white, fontname = \"Calibri\"];\n\n");
+
+    for (int i = 0; i < box->capacity; i++)
+    {
+
+        if (i == box->head)
+        {
+            fprintf (graphviz, "node%d [fillcolor = \"#008080\", label = \"{cell = %d HEAD| {value = %d |<next> next = %ld |<prev> prev = %ld}}\"];\n\n",i , i, box->data[i], box->index[i].next, box->index[i].prev);
+        }
+
+        else if (i == box->tail)
+        {
+            fprintf (graphviz, "node%d [fillcolor = \"#006400\", label = \"{cell = %d TAIL| {value = %d |<next> next = %ld |<prev> prev = %ld}}\"];\n\n",i , i, box->data[i], box->index[i].next, box->index[i].prev);
+        }
+
+        else
+        {
+            fprintf (graphviz, "node%d [label = \"{cell = %d | {value = %d |<next> next = %ld |<prev> prev = %ld}}\"];\n",i , i, box->data[i], box->index[i].next, box->index[i].prev);
+        }
+    }
+
+    for (int i = 0; i < box->capacity; i++)
+    {
+        if (box->index[i].next != -1)
+        {
+            fprintf (graphviz, "node%d:<next> -> node%ld [color = \"green\"];\n",  i, box->index[i].next);
+            fprintf (graphviz, "node%d:<prev> -> node%ld [color = \"purple\"];\n",i, box->index[i].prev);
+        }
+    }
+    fprintf (graphviz, "}\n");
+    fclose (graphviz);
+}

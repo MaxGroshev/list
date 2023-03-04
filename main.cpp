@@ -16,10 +16,10 @@ int main ()
     list_push (&box, 14, 2);
     list_push (&box, 18, 3);
     list_push (&box, 1, 1);
-    //list_push (&box, 32, 7);
-    list_pop (&box, 7);
-
-    list_print (&box);
+    list_pop  (&box, 7);
+    list_push (&box, 32, 7);
+    list_print(&box);
+    list_graph(&box);
     list_delete (&box);
     return 0;
 }

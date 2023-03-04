@@ -1,6 +1,5 @@
 #pragma once
 #define DEBUG
-#define CHECK_QUEUE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,4 +57,5 @@ void      clean_cell  (list_t* box, size_t num_cell);
 void      list_delete (list_t* box);
 
 void      list_print  (list_t* box);
-void       list_check  (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LINE);
+void      list_graph  (list_t* box);
+void      list_check  (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LINE);

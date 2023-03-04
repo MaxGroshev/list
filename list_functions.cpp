@@ -17,6 +17,7 @@ void list_init (list_t* box)
 
 void list_push (list_t* box, list_type element, size_t position)
 {
+
     bad_search (box);
     LIST_CHECK (box->free != 0 && position > 0 && position - 1 <= box->size );
 
@@ -60,6 +61,9 @@ void list_push (list_t* box, list_type element, size_t position)
         box->index[next_cell].next = box->free;
     }
     box->size++;
+
+    // box->free = box->size + 1;
+    // if (box->capacity < box->size + 3) list_resize (box);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

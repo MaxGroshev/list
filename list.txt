@@ -2,7 +2,7 @@
  11 [1] - head point to this cell
   3 [35] - tail point to this cell
  20 - capacity of list
- 10 - size of list
+ 11 - size of list
 ============================LIST=======================================
 
  [cell] | [prev] | [next] | [data]
@@ -11,9 +11,9 @@
    2        4        3        12
    3        2        0        35 - tail point to this cell
    4        5        2        32
-   5        7        4       113
-   6       -1       -1     57005
-   7        8        5        12
+   5        6        4       113
+   6        7        5        32
+   7        8        6        12
    8       10        7        13
    9        1       10        14
   10        9        8        18

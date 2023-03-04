@@ -1,8 +1,8 @@
 #if defined(DEBUG)
-#define LIST_CHECK(condition)                                                                           \
+#define LIST_CHECK(condition)                                                                            \
         if (!(condition))                                                                                \
         {                                                                                                \
-            list_check (box, __FILE__, __FUNCTION__, __LINE__ );                                                                             \
+            list_check (box, __FILE__, __FUNCTION__, __LINE__ );                                         \
             exit (1);                                                                                    \
         }                                                                                                \
 

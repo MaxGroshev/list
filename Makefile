@@ -21,6 +21,9 @@ $(PREF_OBJ)%.o : %.cpp
 valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes ./$(TARGET)
 
+graphviz:
+	dot list_dump.dot -Tpng -o list_dump.png
+
 .PHONY : clean
 clean:
 	rm -rf $(PREF_OBJ)*.o $(TARGET)
