@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "graphviz.h"
 #include "list_check.h"
 #include "my_ASSERT.h"
 

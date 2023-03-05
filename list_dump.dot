@@ -1,52 +1,85 @@
-digraph
+digraph 
 {
 rankdir = "LR"
-node [shape = Mrecord, fillcolor= "#FA8072", style = filled, fontcolor = white, color = white, fontname = "Calibri"];
+node [shape = Mrecord, fillcolor= "#FA8072", style = filled, fontcolor = white, color = white, fontname = "Calibri", pin = true];
 
-node0 [label = "{cell = 0 | {value = 0 |<next> next = 0 |<prev> prev = 0}}"];
-node1 [label = "{cell = 1 | {value = 1 |<next> next = 9 |<prev> prev = 11}}"];
-node2 [label = "{cell = 2 | {value = 12 |<next> next = 3 |<prev> prev = 4}}"];
-node3 [fillcolor = "#006400", label = "{cell = 3 TAIL| {value = 35 |<next> next = 0 |<prev> prev = 2}}"];
+node0 [fillcolor = "#FA8072", label = "{<cell> cell = 0\n | {value = 0 |<next> next = 0 |<prev> prev = 0}}"];
 
-node4 [label = "{cell = 4 | {value = 32 |<next> next = 2 |<prev> prev = 5}}"];
-node5 [label = "{cell = 5 | {value = 113 |<next> next = 4 |<prev> prev = 6}}"];
-node6 [label = "{cell = 6 | {value = 32 |<next> next = 5 |<prev> prev = 7}}"];
-node7 [label = "{cell = 7 | {value = 12 |<next> next = 6 |<prev> prev = 8}}"];
-node8 [label = "{cell = 8 | {value = 13 |<next> next = 7 |<prev> prev = 10}}"];
-node9 [label = "{cell = 9 | {value = 14 |<next> next = 10 |<prev> prev = 1}}"];
-node10 [label = "{cell = 10 | {value = 18 |<next> next = 8 |<prev> prev = 9}}"];
-node11 [fillcolor = "#008080", label = "{cell = 11 HEAD| {value = 1 |<next> next = 1 |<prev> prev = 0}}"];
+node1 [fillcolor = "#FA8072", label = "{<cell> cell = 1\n | {value = 1 |<next> next = 9 |<prev> prev = 11}}"];
 
-node12 [label = "{cell = 12 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node13 [label = "{cell = 13 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node14 [label = "{cell = 14 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node15 [label = "{cell = 15 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node16 [label = "{cell = 16 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node17 [label = "{cell = 17 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node18 [label = "{cell = 18 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node19 [label = "{cell = 19 | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
-node0:<next> -> node0 [color = "green"];
-node0:<prev> -> node0 [color = "purple"];
-node1:<next> -> node9 [color = "green"];
-node1:<prev> -> node11 [color = "purple"];
-node2:<next> -> node3 [color = "green"];
-node2:<prev> -> node4 [color = "purple"];
-node3:<next> -> node0 [color = "green"];
-node3:<prev> -> node2 [color = "purple"];
-node4:<next> -> node2 [color = "green"];
-node4:<prev> -> node5 [color = "purple"];
-node5:<next> -> node4 [color = "green"];
-node5:<prev> -> node6 [color = "purple"];
-node6:<next> -> node5 [color = "green"];
-node6:<prev> -> node7 [color = "purple"];
-node7:<next> -> node6 [color = "green"];
-node7:<prev> -> node8 [color = "purple"];
-node8:<next> -> node7 [color = "green"];
-node8:<prev> -> node10 [color = "purple"];
-node9:<next> -> node10 [color = "green"];
-node9:<prev> -> node1 [color = "purple"];
-node10:<next> -> node8 [color = "green"];
-node10:<prev> -> node9 [color = "purple"];
-node11:<next> -> node1 [color = "green"];
-node11:<prev> -> node0 [color = "purple"];
+node2 [fillcolor = "#FA8072", label = "{<cell> cell = 2\n | {value = 12 |<next> next = 3 |<prev> prev = 4}}"];
+
+node3 [fillcolor = "#006400", label = "{<cell> cell = 3\n TAIL| {value = 35 |<next> next = 0 |<prev> prev = 2}}"];
+
+node4 [fillcolor = "#FA8072", label = "{<cell> cell = 4\n | {value = 32 |<next> next = 2 |<prev> prev = 5}}"];
+
+node5 [fillcolor = "#FA8072", label = "{<cell> cell = 5\n | {value = 113 |<next> next = 4 |<prev> prev = 7}}"];
+
+node6 [fillcolor = "#FA8072", label = "{<cell> cell = 6\n | {value = 57005 |<next> next = -1 |<prev> prev = -1}}"];
+
+node7 [fillcolor = "#FA8072", label = "{<cell> cell = 7\n | {value = 12 |<next> next = 5 |<prev> prev = 8}}"];
+
+node8 [fillcolor = "#FA8072", label = "{<cell> cell = 8\n | {value = 13 |<next> next = 7 |<prev> prev = 10}}"];
+
+node9 [fillcolor = "#FA8072", label = "{<cell> cell = 9\n | {value = 14 |<next> next = 10 |<prev> prev = 1}}"];
+
+node10 [fillcolor = "#FA8072", label = "{<cell> cell = 10\n | {value = 18 |<next> next = 8 |<prev> prev = 9}}"];
+
+node11 [fillcolor = "#008080", label = "{<cell> cell = 11\n HEAD| {value = 1 |<next> next = 1 |<prev> prev = 0}}"];
+
+node12 [fillcolor = "#FA8072", label = "{<cell> cell = 12\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node13 [fillcolor = "#FA8072", label = "{<cell> cell = 13\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node14 [fillcolor = "#FA8072", label = "{<cell> cell = 14\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node15 [fillcolor = "#FA8072", label = "{<cell> cell = 15\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node16 [fillcolor = "#FA8072", label = "{<cell> cell = 16\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node17 [fillcolor = "#FA8072", label = "{<cell> cell = 17\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node18 [fillcolor = "#FA8072", label = "{<cell> cell = 18\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node19 [fillcolor = "#FA8072", label = "{<cell> cell = 19\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node0:<prev> -> node1:<cell> [color = "", style = "invis"
+node1:<prev> -> node2:<cell> [color = "", style = "invis"
+node1:<prev> -> node9:<cell> [color = "#FF8C00", style = ""
+node1:<prev> -> node11:<cell> [color = "blue", style = ""
+node2:<prev> -> node3:<cell> [color = "", style = "invis"
+node2:<prev> -> node3:<cell> [color = "#FF8C00", style = ""
+node2:<prev> -> node4:<cell> [color = "blue", style = ""
+node3:<prev> -> node4:<cell> [color = "", style = "invis"
+node3:<prev> -> node0:<cell> [color = "#FF8C00", style = ""
+node3:<prev> -> node2:<cell> [color = "blue", style = ""
+node4:<prev> -> node5:<cell> [color = "", style = "invis"
+node4:<prev> -> node2:<cell> [color = "#FF8C00", style = ""
+node4:<prev> -> node5:<cell> [color = "blue", style = ""
+node5:<prev> -> node6:<cell> [color = "", style = "invis"
+node5:<prev> -> node4:<cell> [color = "#FF8C00", style = ""
+node5:<prev> -> node7:<cell> [color = "blue", style = ""
+node6:<prev> -> node7:<cell> [color = "", style = "invis"
+node7:<prev> -> node8:<cell> [color = "", style = "invis"
+node7:<prev> -> node5:<cell> [color = "#FF8C00", style = ""
+node7:<prev> -> node8:<cell> [color = "blue", style = ""
+node8:<prev> -> node9:<cell> [color = "", style = "invis"
+node8:<prev> -> node7:<cell> [color = "#FF8C00", style = ""
+node8:<prev> -> node10:<cell> [color = "blue", style = ""
+node9:<prev> -> node10:<cell> [color = "", style = "invis"
+node9:<prev> -> node10:<cell> [color = "#FF8C00", style = ""
+node9:<prev> -> node1:<cell> [color = "blue", style = ""
+node10:<prev> -> node11:<cell> [color = "", style = "invis"
+node10:<prev> -> node8:<cell> [color = "#FF8C00", style = ""
+node10:<prev> -> node9:<cell> [color = "blue", style = ""
+node11:<prev> -> node12:<cell> [color = "", style = "invis"
+node11:<prev> -> node1:<cell> [color = "#FF8C00", style = ""
+node11:<prev> -> node0:<cell> [color = "blue", style = ""
+node12:<prev> -> node13:<cell> [color = "", style = "invis"
+node13:<prev> -> node14:<cell> [color = "", style = "invis"
+node14:<prev> -> node15:<cell> [color = "", style = "invis"
+node15:<prev> -> node16:<cell> [color = "", style = "invis"
+node16:<prev> -> node17:<cell> [color = "", style = "invis"
+node17:<prev> -> node18:<cell> [color = "", style = "invis"
+node18:<prev> -> node19:<cell> [color = "", style = "invis"
 }

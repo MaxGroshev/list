@@ -62,39 +62,38 @@ void list_print (list_t* box)
 void list_graph (list_t* box)
 {
     FILE* graphviz = fopen ("list_dump.dot", "w");
-
-    fprintf (graphviz, "digraph \n{\n");
-    fprintf (graphviz, "rankdir = \"LR\"\n");
-    fprintf (graphviz, "node [shape = Mrecord, fillcolor= \"#FA8072\", style = filled, fontcolor = white, "
-                       "color = white, fontname = \"Calibri\"];\n\n");
+    graph_t settings = {};
+    init_graph (graphviz, &settings);
 
     for (int i = 0; i < box->capacity; i++)
     {
 
         if (i == box->head)
         {
-            fprintf (graphviz, "node%d [fillcolor = \"#008080\", label = \"{cell = %d HEAD| {value = %d |<next> next = %ld |<prev> prev = %ld}}\"];\n\n",i , i, box->data[i], box->index[i].next, box->index[i].prev);
+            make_node (graphviz, i, "#008080", box->index[i].next, box->index[i].prev, box->data[i], "HEAD");
         }
 
         else if (i == box->tail)
         {
-            fprintf (graphviz, "node%d [fillcolor = \"#006400\", label = \"{cell = %d TAIL| {value = %d |<next> next = %ld |<prev> prev = %ld}}\"];\n\n",i , i, box->data[i], box->index[i].next, box->index[i].prev);
+            make_node (graphviz, i, "#006400", box->index[i].next, box->index[i].prev, box->data[i], "TAIL");
         }
 
         else
         {
-            fprintf (graphviz, "node%d [label = \"{cell = %d | {value = %d |<next> next = %ld |<prev> prev = %ld}}\"];\n",i , i, box->data[i], box->index[i].next, box->index[i].prev);
+            make_node (graphviz, i, "#FA8072", box->index[i].next, box->index[i].prev, box->data[i], "");
         }
     }
 
-    for (int i = 0; i < box->capacity; i++)
+    for (int i = 0; i < box->capacity - 1; i++)
     {
-        if (box->index[i].next != -1)
+        make_edge (graphviz, i, i + 1, "", "invis");
+        if (box->index[i].next != -1 && (box->index[i].next != 0 || box->index[i].prev != 0))
         {
-            fprintf (graphviz, "node%d:<next> -> node%ld [color = \"green\"];\n",  i, box->index[i].next);
-            fprintf (graphviz, "node%d:<prev> -> node%ld [color = \"purple\"];\n",i, box->index[i].prev);
+            make_edge (graphviz,  i, box->index[i].next, "#FF8C00", "");
+            make_edge (graphviz,  i, box->index[i].prev, "blue", "");
         }
     }
-    fprintf (graphviz, "}\n");
+
+    run_graphviz (graphviz);
     fclose (graphviz);
 }
