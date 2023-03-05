@@ -19,7 +19,7 @@ void list_check (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LI
 
 void list_print (list_t* box)
 {
-    FILE* print_list = fopen ("list.txt", "w");
+    FILE* print_list = fopen ("./dump_info/list_dump.txt", "w");
     MY_ASSERT (print_list != NULL);
 
     fprintf (print_list, "=========================HEAD_&_TAIL====================================\n"
@@ -59,11 +59,14 @@ void list_print (list_t* box)
     fclose (print_list);
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
 void list_graph (list_t* box)
 {
-    FILE* graphviz = fopen ("list_dump.dot", "w");
-    graph_t settings = {};
-    init_graph (graphviz, &settings);
+    FILE* graphviz          = fopen ("./dump_info/list_dump.dot", "w");
+    graph_t graph_dump_set  = {LIST_GRAPH_DUMP, box->capacity, box->size, box->head, box->tail};
+    init_graph (graphviz, &graph_dump_set);
+
 
     for (int i = 0; i < box->capacity; i++)
     {
@@ -86,11 +89,11 @@ void list_graph (list_t* box)
 
     for (int i = 0; i < box->capacity - 1; i++)
     {
-        make_edge (graphviz, i, i + 1, "", "invis");
+        make_edge (graphviz, i, i + 1, "", "invis", "true");
         if (box->index[i].next != -1 && (box->index[i].next != 0 || box->index[i].prev != 0))
         {
-            make_edge (graphviz,  i, box->index[i].next, "#FF8C00", "");
-            make_edge (graphviz,  i, box->index[i].prev, "blue", "");
+            make_edge (graphviz,  i, box->index[i].next, "#FF8C00", "", "false");
+            make_edge (graphviz,  i, box->index[i].prev, "blue", "", "false");
         }
     }
 

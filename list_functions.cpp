@@ -157,8 +157,7 @@ void list_resize (list_t* box)
     box->data  = data_resize;
     box->index = index_resize;
     memset (box->index + box->size + 2, -1, (box->capacity - box->size - 2) * sizeof (struct access));
-
-    //list_print (box);
+    memset (box->data  + box->size + 2,  0, (box->capacity - box->size - 2) * sizeof (int));
 }
 
 void list_delete (list_t* box)

@@ -1,0 +1,90 @@
+digraph   
+{
+rankdir = "LR"
+splines = "ortho"
+node [shape = Mrecord, fillcolor = "#FA8072",   style = filled,      fontcolor = white,      fontname = "Calibri",  color = white, pin = true];
+
+node_stat [margin = "0.3*0.3", shape = "record", fillcolor = "#8DB6CD" label = "capacity = 20 | size = 11 | head point = 11 | tail point = 3"]
+{rank = source; node_stat}
+node0 [fillcolor = "#FA8072", label = "{<cell> cell = 0\n | {value = 0 |<next> next = 0 |<prev> prev = 0}}"];
+
+node1 [fillcolor = "#FA8072", label = "{<cell> cell = 1\n | {value = 1 |<next> next = 9 |<prev> prev = 11}}"];
+
+node2 [fillcolor = "#FA8072", label = "{<cell> cell = 2\n | {value = 12 |<next> next = 3 |<prev> prev = 4}}"];
+
+node3 [fillcolor = "#006400", label = "{<cell> cell = 3\n TAIL| {value = 35 |<next> next = 0 |<prev> prev = 2}}"];
+
+node4 [fillcolor = "#FA8072", label = "{<cell> cell = 4\n | {value = 32 |<next> next = 2 |<prev> prev = 5}}"];
+
+node5 [fillcolor = "#FA8072", label = "{<cell> cell = 5\n | {value = 113 |<next> next = 4 |<prev> prev = 6}}"];
+
+node6 [fillcolor = "#FA8072", label = "{<cell> cell = 6\n | {value = 32 |<next> next = 5 |<prev> prev = 7}}"];
+
+node7 [fillcolor = "#FA8072", label = "{<cell> cell = 7\n | {value = 12 |<next> next = 6 |<prev> prev = 8}}"];
+
+node8 [fillcolor = "#FA8072", label = "{<cell> cell = 8\n | {value = 13 |<next> next = 7 |<prev> prev = 10}}"];
+
+node9 [fillcolor = "#FA8072", label = "{<cell> cell = 9\n | {value = 14 |<next> next = 10 |<prev> prev = 1}}"];
+
+node10 [fillcolor = "#FA8072", label = "{<cell> cell = 10\n | {value = 18 |<next> next = 8 |<prev> prev = 9}}"];
+
+node11 [fillcolor = "#008080", label = "{<cell> cell = 11\n HEAD| {value = 1 |<next> next = 1 |<prev> prev = 0}}"];
+
+node12 [fillcolor = "#FA8072", label = "{<cell> cell = 12\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node13 [fillcolor = "#FA8072", label = "{<cell> cell = 13\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node14 [fillcolor = "#FA8072", label = "{<cell> cell = 14\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node15 [fillcolor = "#FA8072", label = "{<cell> cell = 15\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node16 [fillcolor = "#FA8072", label = "{<cell> cell = 16\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node17 [fillcolor = "#FA8072", label = "{<cell> cell = 17\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node18 [fillcolor = "#FA8072", label = "{<cell> cell = 18\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node19 [fillcolor = "#FA8072", label = "{<cell> cell = 19\n | {value = 0 |<next> next = -1 |<prev> prev = -1}}"];
+
+node0 -> node1 [color = "", style = "invis", constraint = true];
+node1 -> node2 [color = "", style = "invis", constraint = true];
+node1 -> node9 [color = "#FF8C00", style = "", constraint = false];
+node1 -> node11 [color = "blue", style = "", constraint = false];
+node2 -> node3 [color = "", style = "invis", constraint = true];
+node2 -> node3 [color = "#FF8C00", style = "", constraint = false];
+node2 -> node4 [color = "blue", style = "", constraint = false];
+node3 -> node4 [color = "", style = "invis", constraint = true];
+node3 -> node0 [color = "#FF8C00", style = "", constraint = false];
+node3 -> node2 [color = "blue", style = "", constraint = false];
+node4 -> node5 [color = "", style = "invis", constraint = true];
+node4 -> node2 [color = "#FF8C00", style = "", constraint = false];
+node4 -> node5 [color = "blue", style = "", constraint = false];
+node5 -> node6 [color = "", style = "invis", constraint = true];
+node5 -> node4 [color = "#FF8C00", style = "", constraint = false];
+node5 -> node6 [color = "blue", style = "", constraint = false];
+node6 -> node7 [color = "", style = "invis", constraint = true];
+node6 -> node5 [color = "#FF8C00", style = "", constraint = false];
+node6 -> node7 [color = "blue", style = "", constraint = false];
+node7 -> node8 [color = "", style = "invis", constraint = true];
+node7 -> node6 [color = "#FF8C00", style = "", constraint = false];
+node7 -> node8 [color = "blue", style = "", constraint = false];
+node8 -> node9 [color = "", style = "invis", constraint = true];
+node8 -> node7 [color = "#FF8C00", style = "", constraint = false];
+node8 -> node10 [color = "blue", style = "", constraint = false];
+node9 -> node10 [color = "", style = "invis", constraint = true];
+node9 -> node10 [color = "#FF8C00", style = "", constraint = false];
+node9 -> node1 [color = "blue", style = "", constraint = false];
+node10 -> node11 [color = "", style = "invis", constraint = true];
+node10 -> node8 [color = "#FF8C00", style = "", constraint = false];
+node10 -> node9 [color = "blue", style = "", constraint = false];
+node11 -> node12 [color = "", style = "invis", constraint = true];
+node11 -> node1 [color = "#FF8C00", style = "", constraint = false];
+node11 -> node0 [color = "blue", style = "", constraint = false];
+node12 -> node13 [color = "", style = "invis", constraint = true];
+node13 -> node14 [color = "", style = "invis", constraint = true];
+node14 -> node15 [color = "", style = "invis", constraint = true];
+node15 -> node16 [color = "", style = "invis", constraint = true];
+node16 -> node17 [color = "", style = "invis", constraint = true];
+node17 -> node18 [color = "", style = "invis", constraint = true];
+node18 -> node19 [color = "", style = "invis", constraint = true];
+}
