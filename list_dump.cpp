@@ -63,44 +63,53 @@ void list_print (list_t* box)
 
 void list_graph (list_t* box)
 {
-    FILE* graphviz                 = fopen ("./dump_info/list_dump.dot", "w");
-    list_graph_t graph_dump_set    = {};
-    graph_dump_set.inform.capacity = box->capacity;
-    graph_dump_set.inform.size     = box->size;
-    graph_dump_set.inform.head     = box->head;
-    graph_dump_set.inform.tail     = box->tail;
+    FILE* graphviz               = fopen ("./dump_info/list_dump.dot", "w");
+    dump_graph_t graph_dump_set  = {};
+    graph_dump_set.info.capacity = box->capacity;
+    graph_dump_set.info.size     = box->size;
+    graph_dump_set.info.head     = box->head;
+    graph_dump_set.info.tail     = box->tail;
     init_graph (graphviz, &graph_dump_set);
-
 
     for (int i = 0; i < box->capacity; i++)
     {
 
         if (i == box->head)
         {
-            make_node (graphviz, i, "#008080", box->index[i].next, box->index[i].prev, box->data[i], "HEAD");
+            graph_dump_set.nodes[i].fillcolor = "#008080";
+            make_node (graphviz, &graph_dump_set,i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->data[i]);
         }
 
         else if (i == box->tail)
         {
-            make_node (graphviz, i, "#006400", box->index[i].next, box->index[i].prev, box->data[i], "TAIL");
+            graph_dump_set.nodes[i].fillcolor = "#006400";
+            make_node (graphviz, &graph_dump_set,i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->data[i]);
         }
 
         else
         {
-            make_node (graphviz, i, "#FA8072", box->index[i].next, box->index[i].prev, box->data[i], "");
+            make_node (graphviz, &graph_dump_set, i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->data[i]);
         }
     }
 
-    for (int i = 0; i < box->capacity - 1; i++)
+    for (int i = 0, num_of_edges = 0; i < box->capacity - 1; i++, num_of_edges++)
     {
-        make_edge (graphviz, i, i + 1, "", "invis", "true");
+        graph_dump_set.edges[num_of_edges].style = "invis";
+        make_edge (graphviz, &graph_dump_set, i, i + 1, graph_dump_set.edges[num_of_edges]);
+        num_of_edges++;
         if (box->index[i].next != -1 && (box->index[i].next != 0 || box->index[i].prev != 0))
         {
-            make_edge (graphviz,  i, box->index[i].next, "#FF8C00", "", "false");
-            make_edge (graphviz,  i, box->index[i].prev, "blue", "", "false");
+            graph_dump_set.edges[num_of_edges].constraint = "false";
+            graph_dump_set.edges[num_of_edges].color      = "#FF8C00";
+            make_edge (graphviz, &graph_dump_set,i, box->index[i].next, graph_dump_set.edges[num_of_edges]);
+
+            num_of_edges++;
+            graph_dump_set.edges[num_of_edges].constraint = "false";
+            graph_dump_set.edges[num_of_edges].color      = "blue";
+            make_edge (graphviz, &graph_dump_set, i, box->index[i].prev, graph_dump_set.edges[num_of_edges]);
         }
     }
 
-    run_graphviz (graphviz);
+    run_graphviz (graphviz, &graph_dump_set);
     fclose (graphviz);
 }
