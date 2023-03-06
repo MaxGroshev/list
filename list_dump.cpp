@@ -63,8 +63,12 @@ void list_print (list_t* box)
 
 void list_graph (list_t* box)
 {
-    FILE* graphviz          = fopen ("./dump_info/list_dump.dot", "w");
-    graph_t graph_dump_set  = {LIST_GRAPH_DUMP, box->capacity, box->size, box->head, box->tail};
+    FILE* graphviz                 = fopen ("./dump_info/list_dump.dot", "w");
+    list_graph_t graph_dump_set    = {};
+    graph_dump_set.inform.capacity = box->capacity;
+    graph_dump_set.inform.size     = box->size;
+    graph_dump_set.inform.head     = box->head;
+    graph_dump_set.inform.tail     = box->tail;
     init_graph (graphviz, &graph_dump_set);
 
 

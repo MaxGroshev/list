@@ -1,6 +1,6 @@
 #include "graphviz.h"
 
-void init_graph (FILE* graphviz, graph_t* graph_dump_set)
+void init_graph (FILE* graphviz, list_graph_t* graph_dump_set)
 {
     fprintf (graphviz, "digraph   \n{\n");
     fprintf (graphviz, "rankdir = \"%s\"\n", graph_dump_set->orientation);

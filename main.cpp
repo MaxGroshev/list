@@ -17,7 +17,7 @@ int main ()
     list_push (&box, 18, 3);
     list_push (&box, 1, 1);
     list_pop  (&box, 7);
-    // for (int i = 7; i < 200; i++)
+    // for (int i = 7; i < 1000; i++)
     // {
     //     list_push (&box, i, i);
     // }
