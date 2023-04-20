@@ -1,33 +1,36 @@
-#pragma once
+#ifndef GRAPHVIZ_H
+#define GRAPHVIZ_H
+
 #define DEBUG
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "my_ASSERT.h"
+#include "list.h"
 
 //---------------------------------------------------------------------------------------------------------
 
 struct node_t
 {
-    const char* shape       = "Mrecord";
-    const char* fillcolor   = "#FA8072";
-    const char* style       = "filled";
-    const char* fontcolor   = "white";
-    const char* fontname    = "Calibri";
-    const char* color       = "white";
-    const char* margin      = "";
-    const char* label       = "";
+    const char* shape     = "Mrecord";
+    const char* fillcolor = "#FA8072";
+    const char* style     = "filled";
+    const char* fontcolor = "white";
+    const char* fontname  = "Calibri";
+    const char* color     = "white";
+    const char* margin    = "";
+    const char* label     = "";
 };
 
 struct edge_t
 {
     const char* constraint = "true";
-    const char* fillcolor   = "\"\"";
-    const char* style       = "";
-    const char* fontcolor   = "";
-    const char* fontname    = "Calibri";
-    const char* color       = "black";
-    const char* label       = "";
+    const char* fillcolor  = "";
+    const char* style      = "";
+    const char* fontcolor  = "";
+    const char* fontname   = "Calibri";
+    const char* color      = "black";
+    const char* label      = "";
 };
 
 struct data_stat_t
@@ -59,3 +62,5 @@ void make_edge      (FILE* graphviz, dump_graph_t* graph_dump_set,int num_from, 
 void resize_struct  (dump_graph_t* graph_dump_set);
 void print_def_info (FILE* graphviz, dump_graph_t* graph_dump_set);
 void run_graphviz   (FILE* graphviz, dump_graph_t* graph_dump_set);
+
+#endif //GRAPHVIZ_H

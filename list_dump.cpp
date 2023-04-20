@@ -7,7 +7,6 @@ void list_check (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LI
         fprintf (stderr, "Free cell was't found in %s: %s: %d:\n", DUR_FILE, FUNCTION, LINE);
         list_print (box);
     }
-
     else
     {
         fprintf (stderr, "Impossible to use numbers of elements that does't belong to list in %s: %s: %d:\n", DUR_FILE, FUNCTION, LINE);
@@ -28,7 +27,7 @@ void list_print (list_t* box)
                           "%3ld - capacity of list\n"
                           "%3ld - size of list\n"
                           "============================LIST=======================================\n\n"
-                          ,box->head, box->data[box->head], box->tail, box->data[box->tail], box->capacity, box->size);
+                          ,box->head, box->index[box->head].data, box->tail, box->index[box->tail].data, box->capacity, box->size);
 
     fprintf (print_list, " [cell] | [prev] | [next] | [data]\n");
     for (int i = 0; i < box->capacity; i++)
@@ -37,23 +36,23 @@ void list_print (list_t* box)
         {
             if (box->tail == box->head)
             {
-                fprintf (print_list, "%4d %8ld %8ld %9d - head & tail point to this cell\n", i, box->index[i].prev, box->index[i].next, box->data[i]);
+                fprintf (print_list, "%4d %8ld %8ld %9d - head & tail point to this cell\n", i, box->index[i].prev, box->index[i].next, box->index[i].data);
             }
 
             else
             {
-                fprintf (print_list, "%4d %8ld %8ld %9d - tail point to this cell\n", i, box->index[i].prev, box->index[i].next, box->data[i]);
+                fprintf (print_list, "%4d %8ld %8ld %9d - tail point to this cell\n", i, box->index[i].prev, box->index[i].next, box->index[i].data);
             }
         }
 
         else if (i == box->head)
         {
-            fprintf (print_list, "%4d %8ld %8ld %9d - head point to this cell\n", i, box->index[i].prev, box->index[i].next, box->data[i]);
+            fprintf (print_list, "%4d %8ld %8ld %9d - head point to this cell\n", i, box->index[i].prev, box->index[i].next, box->index[i].data);
         }
 
         else
         {
-            fprintf (print_list, "%4d %8ld %8ld %9d\n", i, box->index[i].prev, box->index[i].next, box->data[i]);
+            fprintf (print_list, "%4d %8ld %8ld %9d\n", i, box->index[i].prev, box->index[i].next, box->index[i].data);
         }
     }
     fclose (print_list);
@@ -77,18 +76,16 @@ void list_graph (list_t* box)
         if (i == box->head)
         {
             graph_dump_set.nodes[i].fillcolor = "#008080";
-            make_node (graphviz, &graph_dump_set,i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->data[i]);
+            make_node (graphviz, &graph_dump_set,i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->index[i].data);
         }
-
         else if (i == box->tail)
         {
             graph_dump_set.nodes[i].fillcolor = "#006400";
-            make_node (graphviz, &graph_dump_set,i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->data[i]);
+            make_node (graphviz, &graph_dump_set,i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->index[i].data);
         }
-
         else
         {
-            make_node (graphviz, &graph_dump_set, i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->data[i]);
+            make_node (graphviz, &graph_dump_set, i, graph_dump_set.nodes[i], box->index[i].next, box->index[i].prev, box->index[i].data);
         }
     }
 
