@@ -1,28 +1,18 @@
 =========================HEAD_&_TAIL====================================
- 11 [1] - head point to this cell
+  1 [1] - head point to this cell
   3 [35] - tail point to this cell
- 20 - capacity of list
- 11 - size of list
+ 10 - capacity of list
+  4 - size of list
 ============================LIST=======================================
 
  [cell] | [prev] | [next] | [data]
    0        0        0     57005
-   1       11        9         1
-   2        4        3        12
+   1        0        5         1 - head point to this cell
+   2        5        3        12
    3        2        0        35 - tail point to this cell
-   4        5        2        32
-   5       12        4       113
-   6       -1       -1     57005
-   7        8       12        12
-   8       10        7        13
-   9        1       10        14
-  10        9        8        18
-  11        0        1         1 - head point to this cell
-  12        7        5        32
-  13       12       14     57005
-  14       13       15     57005
-  15       14       16     57005
-  16       15       17     57005
-  17       16       18     57005
-  18       17       19     57005
-  19       18       20     57005
+   4       -1       -1     57005
+   5        1        2        32
+   6        5        7     57005
+   7        6        8     57005
+   8        7        9     57005
+   9        8       10     57005

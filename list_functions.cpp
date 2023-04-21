@@ -115,7 +115,8 @@ list_type  list_pop (list_t* box, size_t position )
             next_cell = box->index[next_cell].next;
         }
 
-        element = box->index[next_cell].data;
+        element =  box->index[next_cell].data;
+        printf ("%d\n", element);
         box->index[box->index[next_cell].next].prev = box->index[next_cell].prev;
         box->index[box->index[next_cell].prev].next = box->index[next_cell].next;
         clean_cell (box, next_cell);
