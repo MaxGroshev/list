@@ -9,6 +9,10 @@
 #include "list_check.h"
 #include "my_ASSERT.h"
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
+#define CUR_POS_IN_PROG    __FILE__, __PRETTY_FUNCTION__, __LINE__
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 typedef int list_type; // type of elem in list
@@ -51,10 +55,29 @@ struct list_t
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void      list_init   (list_t* box);
-void      list_insert (list_t* box, list_type element, size_t position);
-list_type list_pop    (list_t* box, size_t position);
-int       find_first_free (list_t* box);
+
+//------------------------------------------------------INSERT_FUNC--------------------------------------------------------------------------------------------------
+
+void      list_insert     (list_t* box, list_type element, size_t position);
+void      list_push_front (list_t* box, list_type element);
+void      list_push_back  (list_t* box, list_type element);
+
+//-------------------------------------------------------POP_FUNC------------------------------------------------------------------------------------------------------
+
+list_type list_pop       (list_t* box, size_t position);
+list_type list_pop_front (list_t* box);
+list_type list_pop_back  (list_t* box);
+
+//--------------------------------------------------------SEARCH_FUNC-----------------------------------------------------------------------------------------------------
+
+int       find_first_free    (list_t* box);
+int       find_phys_by_logic (list_t* box, int logic_pos);
+int       find_logic_by_phys (list_t* box, int phys_pos);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void      list_resize (list_t* box);
+void      list_linear (list_t* box);
 void      clean_cell  (list_t* box, size_t num_cell);
 void      list_delete (list_t* box);
 

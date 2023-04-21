@@ -40,7 +40,6 @@ void make_node (FILE* graphviz, dump_graph_t* graph_dump_set, int node_num, stru
 
 void make_edge (FILE* graphviz, dump_graph_t* graph_dump_set, int num_from, int num_to, struct edge_t edges)
 {
-    printf ("\n%d---%d\n", graph_dump_set->edge_size, graph_dump_set->edge_capacity);
     graph_dump_set->edge_size++;
     if (graph_dump_set->edge_capacity <= graph_dump_set->edge_size + 5) resize_struct (graph_dump_set);
 

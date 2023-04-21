@@ -18,13 +18,13 @@ void list_init (list_t* box) //return int (code of error), better without void
     box->free  = 1;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------INSERT_FUNC--------------------------------------------------------------------------------------------------------------------
 
 void list_insert (list_t* box, list_type element, size_t position)
 {
     int free_cell = find_first_free (box);
     box->free = box->index[free_cell].next;
-    LIST_CHECK (box->free != 0 && position > 0 && position - 1 <= box->size );
+    LIST_CHECK (box->free != 0 && position > 0 && position - 1 <= box->size);
 
     if (box->size == 0)
     {
@@ -63,25 +63,39 @@ void list_insert (list_t* box, list_type element, size_t position)
         box->index[next_cell].next = free_cell;
     }
     box->size++;
-
-    // box->free = box->size + 1;
-    // if (box->capacity < box->size + 3) list_resize (box);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-int find_first_free (list_t* box)
+void list_push_front (list_t* box, list_type element)
 {
-    if (box->capacity < box->free + 3)
-    {
-        list_resize (box);
-    }
-    return box->free;
+    MY_ASSERT (box != NULL)
+    int free_cell = find_first_free (box);
+    box->free = box->index[free_cell].next;
+
+    box->index[free_cell].data = element;
+    box->index[free_cell].next = box->head;
+    box->index[free_cell].prev = 0;
+    box->index[box->head].prev = free_cell;
+    box->head = free_cell;
+    box->size++;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void list_push_back (list_t* box, list_type element)
+{
+    MY_ASSERT (box != NULL)
+    int free_cell = find_first_free (box);
+    box->free = box->index[free_cell].next;
 
-list_type  list_pop (list_t* box, size_t position )
+    box->index[free_cell].data = element;
+    box->index[free_cell].prev = box->tail;
+    box->index[free_cell].next = 0;
+    box->index[box->tail].next = free_cell;
+    box->tail                  = free_cell;
+    box->size++;
+}
+
+//--------------------------------------------------POP_FUNC-----------------------------------------------------------------------------------------------------------------------
+
+list_type  list_pop (list_t* box, size_t position)
 {
     list_type element = 0;
     LIST_CHECK (position > 0 && position - 1 <= box->size );
@@ -116,7 +130,6 @@ list_type  list_pop (list_t* box, size_t position )
         }
 
         element =  box->index[next_cell].data;
-        printf ("%d\n", element);
         box->index[box->index[next_cell].next].prev = box->index[next_cell].prev;
         box->index[box->index[next_cell].prev].next = box->index[next_cell].next;
         clean_cell (box, next_cell);
@@ -126,13 +139,106 @@ list_type  list_pop (list_t* box, size_t position )
     return element;
 }
 
+list_type list_pop_front (list_t* box)
+{
+    //if (box->size == 0)  // add recognize of errors
+
+    list_type element = box->index[box->head].data;
+    box->head = box->index[box->head].next;
+    clean_cell (box, box->index[box->head].prev);
+    box->index[box->head].prev = 0;
+    box->size--;
+
+    return element;
+}
+
+list_type list_pop_back (list_t* box)
+{
+    list_type element = box->index[box->tail].data;
+    box->tail = box->index[box->tail].prev;
+    clean_cell (box, box->index[box->tail].next);
+    box->index[box->tail].next = 0;
+    box->size--;
+
+    return element;
+}
+
+//-------------------------------------------SEARCH_FUNC---------------------------------------------------------------------------------------------------------------------------
+
+int find_first_free (list_t* box)
+{
+    if (box->capacity < box->free + 3)
+    {
+        list_resize (box);
+    }
+    return box->free;
+}
+
+int  find_phys_by_logic (list_t* box, int logic_pos)
+{
+    //if (logic_pos <=)
+    int next_cell = box->head;
+    for (int i = 0; i < logic_pos - 1; i++)
+    {
+        next_cell = box->index[next_cell].next;
+    }
+    return next_cell;
+}
+
+int  find_logic_by_phys (list_t* box, int phys_pos)
+{
+    //if (logic_pos <=)
+    int logic_pos = 1;
+
+    while (phys_pos != box->head)
+    {
+        phys_pos = box->index[phys_pos].prev;
+        logic_pos++;
+    }
+    return logic_pos;
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+void list_linear (list_t* box)
+{
+    MY_ASSERT (box != NULL);
+
+    int logic_pos = box->index[box->head].next;
+    for (int phys_pos = 2; phys_pos < box->size; phys_pos++)
+    {
+        if (logic_pos != phys_pos)
+        {
+            int pos_of_elem = box->index[box->index[logic_pos].next].prev;
+            lst_node_t log_val  = box->index[logic_pos];
+            lst_node_t phys_val = box->index[phys_pos];
+
+            box->index[box->index[logic_pos].next].prev = phys_pos;
+            box->index[box->index[logic_pos].prev].next = phys_pos;
+
+            box->index[box->index[phys_pos].next].prev  = pos_of_elem;
+            box->index[box->index[phys_pos].prev].next = pos_of_elem;
+
+            box->index[phys_pos].data    = log_val.data;
+            box->index[pos_of_elem].next = phys_val.next;
+            box->index[phys_pos].prev    = phys_val.prev;
+            box->index[logic_pos].data   = phys_val.data;
+
+        }
+        logic_pos = box->index[logic_pos].next;
+        printf ("%d\n", box->index[logic_pos].next);
+        printf ("%d - logic_pos; %d - phys_pos\n", logic_pos, phys_pos);
+
+    }
+
+}
+
 
 void clean_cell (list_t* box, size_t num_cell)
 {
     box->index[num_cell].next = -1;
     box->index[num_cell].prev = -1;
-    box->index[num_cell].data = 0xDEAD; //TODO constant
+    box->index[num_cell].data = 0xDEAD;
 }
 
 void list_resize (list_t* box)
