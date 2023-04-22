@@ -14,6 +14,11 @@ void list_check (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LI
     }
 }
 
+void list_error (const char* error_mes, const char* DUR_FILE, const char* FUNCTION, int LINE)
+{
+    fprintf (stderr,"\033[91m %s \033[0m in : %s %s %d", error_mes, DUR_FILE, FUNCTION, LINE);
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void list_print (list_t* box)

@@ -1,8 +1,8 @@
 #if defined(DEBUG)
-#define LIST_CHECK(condition)                                                                            \
+#define LIST_CHECK(condition, error_mes)                                                                 \
         if (!(condition))                                                                                \
         {                                                                                                \
-            list_check (box, __FILE__, __FUNCTION__, __LINE__ );                                         \
+            list_error (error_mes, CUR_POS_IN_PROG);                                                     \
             exit (1);                                                                                    \
         }                                                                                                \
 

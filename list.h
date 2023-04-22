@@ -13,6 +13,9 @@
 
 #define CUR_POS_IN_PROG    __FILE__, __PRETTY_FUNCTION__, __LINE__
 
+#define LST_NEG_NUM_OF_CELL "Impossible to make operations with negative cells"
+#define LST_CELL_NOT_EXIST  "Request to cell that does not exist or was recentle freed"
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 typedef int list_type; // type of elem in list
@@ -59,8 +62,8 @@ void      list_init   (list_t* box);
 //------------------------------------------------------INSERT_FUNC--------------------------------------------------------------------------------------------------
 
 void      list_insert     (list_t* box, list_type element, size_t position);
-void      list_push_front (list_t* box, list_type element);
-void      list_push_back  (list_t* box, list_type element);
+void      list_push_front (list_t* box, list_type element,int free_cell = 0);
+void      list_push_back  (list_t* box, list_type element, int free_cell = 0);
 
 //-------------------------------------------------------POP_FUNC------------------------------------------------------------------------------------------------------
 
@@ -81,8 +84,10 @@ void      list_linear (list_t* box);
 void      clean_cell  (list_t* box, size_t num_cell);
 void      list_delete (list_t* box);
 
-void      list_print  (list_t* box);
-void      list_graph  (list_t* box);
-void      list_check  (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LINE);
+void      list_print (list_t* box);
+void      list_graph (list_t* box);
+void      list_check (list_t* box, const char* DUR_FILE, const char* FUNCTION, int LINE);
+void      list_error (const char* error_mes, const char* DUR_FILE, const char* FUNCTION, int LINE);
+
 
 #endif //LIST_H
