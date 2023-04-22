@@ -204,32 +204,37 @@ void list_linear (list_t* box)
 {
     MY_ASSERT (box != NULL);
 
-    int logic_pos = box->index[box->head].next;
-    for (int phys_pos = 2; phys_pos < box->size; phys_pos++)
+    static int change_flag = 0;
+    int init_cell = box->index[box->head].next;
+    for (int phys_pos = 2; phys_pos < box->size - 1; phys_pos++)
     {
-        if (logic_pos != phys_pos)
+        printf ("%d\n", init_cell);
+        printf ("%d - init_cell; %d - phys_pos\n", init_cell, phys_pos);
+        if (init_cell != phys_pos)
         {
-            int pos_of_elem = box->index[box->index[logic_pos].next].prev;
-            lst_node_t log_val  = box->index[logic_pos];
+
+            lst_node_t init_cell_val = box->index[init_cell];
             lst_node_t phys_val = box->index[phys_pos];
 
-            box->index[box->index[logic_pos].next].prev = phys_pos;
-            box->index[box->index[logic_pos].prev].next = phys_pos;
+            box->index[box->index[init_cell].next].prev = phys_pos;
+            box->index[box->index[init_cell].prev].next = phys_pos;
 
-            box->index[box->index[phys_pos].next].prev  = pos_of_elem;
-            box->index[box->index[phys_pos].prev].next = pos_of_elem;
+            box->index[box->index[phys_pos].next].prev = init_cell;
+            box->index[box->index[phys_pos].prev].next = init_cell;
 
-            box->index[phys_pos].data    = log_val.data;
-            box->index[pos_of_elem].next = phys_val.next;
-            box->index[phys_pos].prev    = phys_val.prev;
-            box->index[logic_pos].data   = phys_val.data;
+            box->index[phys_pos].data  = init_cell_val.data;
+            box->index[init_cell].next = phys_val.next;
+            box->index[init_cell].prev = phys_pos;
 
+            box->index[phys_pos].prev  = init_cell_val.prev;
+            box->index[phys_pos].next  = init_cell_val.next;
+            box->index[init_cell].data = phys_val.data;
+            change_flag = 1;
         }
-        logic_pos = box->index[logic_pos].next;
-        printf ("%d\n", box->index[logic_pos].next);
-        printf ("%d - logic_pos; %d - phys_pos\n", logic_pos, phys_pos);
 
-    }
+        init_cell = box->index[phys_pos].next;
+   }
+//  if (change_flag != 0) list_linear (box);
 
 }
 
