@@ -1,6 +1,6 @@
 #include "list.h"
 
-void list_init (list_t* box) //return int (code of error), better without void
+void list_init (list_t* box)
 {
     box->capacity = 10;
     box->index = (struct lst_node_t*) calloc (box->capacity, sizeof (struct lst_node_t));
